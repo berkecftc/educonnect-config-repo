@@ -1,0 +1,31 @@
+server:
+  port: 9004 # Diğer servislerle çakışmayan bir port
+
+spring:
+  # Veritabanı Bağlantısı
+  datasource:
+    url: jdbc:postgresql://localhost:5432/event_db # Docker'daki PostgreSQL'e 'localhost' üzerinden bağlanır
+    username: your_username
+    password: your_password
+    driver-class-name: org.postgresql.Driver
+  
+  # JPA ve Veritabanı Ayarları
+  jpa:
+    hibernate:
+      ddl-auto: update # Geliştirme aşamasında şemayı otomatik günceller
+    show-sql: true # Çalışan SQL sorgularını konsolda gösterir
+  
+  # Mesaj Kuyruğu Bağlantısı
+  rabbitmq:
+    host: localhost # Docker'daki RabbitMQ'ya 'localhost' üzerinden bağlanır
+    port: 5672
+    username: guest
+    password: guest
+
+# Eureka Server'a Kayıt
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+# Not: PostgreSQL'de "event_db" adında yeni bir veritabanı oluşturmanız gerekecektir.

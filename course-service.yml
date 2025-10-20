@@ -1,0 +1,16 @@
+server:
+  port: 9003
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/course_db # DİKKAT: 'localhost'
+    username: your_username
+    password: your_password
+  rabbitmq:
+    host: localhost # DİKKAT: 'rabbitmq' yerine 'localhost'
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
