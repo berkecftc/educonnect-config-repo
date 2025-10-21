@@ -3,8 +3,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/user_db # DİKKAT: 'postgres' yerine 'localhost'
-    username: your_username
-    password: your_password
+    username: eduadmin
+    password: edu123
   redis:
     host: localhost # DİKKAT: 'redis' yerine 'localhost'
     port: 6379

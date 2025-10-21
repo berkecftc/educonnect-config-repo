@@ -5,8 +5,8 @@ spring:
   # Veritabanı Bağlantısı
   datasource:
     url: jdbc:postgresql://localhost:5432/event_db # Docker'daki PostgreSQL'e 'localhost' üzerinden bağlanır
-    username: your_username
-    password: your_password
+    username: eduadmin
+    password: edu123
     driver-class-name: org.postgresql.Driver
   
   # JPA ve Veritabanı Ayarları

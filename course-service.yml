@@ -3,8 +3,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/course_db # DİKKAT: 'localhost'
-    username: your_username
-    password: your_password
+    username: eduadmin
+    password: edu123
   rabbitmq:
     host: localhost # DİKKAT: 'rabbitmq' yerine 'localhost'
     port: 5672

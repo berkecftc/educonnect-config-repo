@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/assignment_db
-    username: your_username
-    password: your_password
+    username: eduadmin 
+    password: edu123
   jpa:
     hibernate:
       ddl-auto: update
