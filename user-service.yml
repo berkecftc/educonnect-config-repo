@@ -1,19 +1,21 @@
 server:
-  port: 9002
+  port: 9003
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/user_db # DİKKAT: 'postgres' yerine 'localhost'
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=user_db
     username: eduadmin
     password: edu123
-  redis:
-    host: localhost # DİKKAT: 'redis' yerine 'localhost'
-    port: 6379
-    minio:
-    url: http://localhost:9000
-    access-key: your_minio_user     # docker-compose'da belirlediğiniz kullanıcı adı
-    secret-key: your_minio_password # docker-compose'da belirlediğiniz şifre
-    bucket:
-    name: educonnect # Kullanacağınız varsayılan bucket adı
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: user_db
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
 eureka:
   client:
     service-url:
