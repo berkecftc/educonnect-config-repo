@@ -21,6 +21,12 @@ spring:
     port: 5672
     username: guest
     password: guest
+    minio:
+    url: http://localhost:9000
+    access-key: your_minio_user     # docker-compose'da belirlediğiniz kullanıcı adı
+    secret-key: your_minio_password # docker-compose'da belirlediğiniz şifre
+    bucket:
+    name: educonnect # Kullanacağınız varsayılan bucket adı
 
 # Eureka Server'a Kayıt
 eureka:
