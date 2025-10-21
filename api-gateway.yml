@@ -1,0 +1,43 @@
+server:
+  port: 8080 # Sisteme giriş noktası portu
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Servisleri Eureka üzerinden otomatik bulur
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/api/auth/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
+        - id: course-service
+          uri: lb://COURSE-SERVICE
+          predicates:
+            - Path=/api/courses/**
+        - id: assignment-service
+          uri: lb://ASSIGNMENT-SERVICE
+          predicates:
+            - Path=/api/assignments/**
+        - id: event-service
+          uri: lb://EVENT-SERVICE
+          predicates:
+            - Path=/api/events/**
+        - id: recommendation-service
+          uri: lb://RECOMMENDATION-SERVICE
+          predicates:
+            - Path=/api/recommendations/**
+        - id: badge-service
+          uri: lb://BADGE-SERVICE
+          predicates:
+            - Path=/api/badges/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

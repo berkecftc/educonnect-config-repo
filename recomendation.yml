@@ -1,0 +1,10 @@
+server:
+  port: 9006
+
+# Bu servis genellikle veritabanı yerine diğer servislerin API'larını çağırır.
+# Gerekirse, modelleri veya önbelleği saklamak için bir veritabanı (örn. Redis) eklenebilir.
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
