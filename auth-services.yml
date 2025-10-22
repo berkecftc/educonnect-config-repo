@@ -15,6 +15,12 @@ spring:
       hibernate:
         default_schema: auth_db
 
+  rabbitmq:
+    host: localhost # Docker'daki RabbitMQ servisi
+    port: 5672
+    username: guest
+    password: guest
+
 eureka:
   client:
     service-url:
