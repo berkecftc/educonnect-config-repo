@@ -7,35 +7,22 @@ spring:
       discovery:
         locator:
           enabled: true # Servisleri Eureka üzerinden otomatik bulur
+
+      default-filters:
+        - AuthenticationFilter          
       routes:
-        - id: auth-service
-          uri: lb://AUTH-SERVICE
+        - id: auth-services
+          uri: lb://AUTH-SERVICES
           predicates:
             - Path=/api/auth/**
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/users/**
-        - id: course-service
-          uri: lb://COURSE-SERVICE
-          predicates:
-            - Path=/api/courses/**
-        - id: assignment-service
-          uri: lb://ASSIGNMENT-SERVICE
-          predicates:
-            - Path=/api/assignments/**
-        - id: event-service
-          uri: lb://EVENT-SERVICE
-          predicates:
-            - Path=/api/events/**
-        - id: recommendation-service
-          uri: lb://RECOMMENDATION-SERVICE
-          predicates:
-            - Path=/api/recommendations/**
-        - id: badge-service
-          uri: lb://BADGE-SERVICE
-          predicates:
-            - Path=/api/badges/**
+        - 
+
+jwt:
+  secret: "Y29rLWd1Y2x1LWJpci1zaWZyZS1idS1raW1zZS1iaWxlbWV6LTEyMzQ1IQ===="
 
 eureka:
   client:
