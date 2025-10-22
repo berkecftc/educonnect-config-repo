@@ -16,6 +16,20 @@ spring:
       hibernate:
         default_schema: user_db
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  redis:
+    host: localhost
+    port: 6379
+  
+  # --- YENİ EKLEME: Önbellekleme Ayarları ---
+  cache:
+    type: redis # Önbellek tipi olarak Redis'i kullan
+    redis:
+      # Önbellekte tutulan verilerin yaşam süresi
+      # 10 dakika sonra bu veri silinir ve veritabanından yenisi çekilir
+      time-to-live: 10m 
+      # Anahtarların başına "user-service::" gibi bir ön ek ekler
+      # Bu, Redis'te diğer servislerin cache'leri ile karışmasını önler
+      key-prefix: "user-service::"      
 
   rabbitmq:
     host: localhost
