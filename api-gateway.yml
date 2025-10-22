@@ -19,7 +19,6 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/users/**
-        - 
 
 jwt:
   secret: "Y29rLWd1Y2x1LWJpci1zaWZyZS1idS1raW1zZS1iaWxlbWV6LTEyMzQ1IQ===="
