@@ -12,7 +12,8 @@ spring:
         - AuthenticationFilter          
       routes:
         - id: auth-services
-          uri: lb://AUTH-SERVICES
+          # uri: lb://AUTH-SERVICES
+          uri: http://localhost:9004
           predicates:
             - Path=/api/auth/**
             - Path=/api/admin/**
