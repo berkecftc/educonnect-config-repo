@@ -6,7 +6,7 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true # Servisleri Eureka üzerinden otomatik bulur
+          enabled: false # Servisleri Eureka üzerinden otomatik bulur
 
       default-filters:
         - AuthenticationFilter          
