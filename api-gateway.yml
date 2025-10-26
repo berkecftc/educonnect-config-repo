@@ -1,15 +1,14 @@
 server:
-  port: 8080 # Sisteme giriş noktası portu
+  port: 8080
 
 spring:
   cloud:
     gateway:
       discovery:
         locator:
-          enabled: false # Servisleri Eureka üzerinden otomatik bulur
-
+          enabled: false
       default-filters:
-        - AuthenticationFilter          
+        - name: AuthenticationFilter
       routes:
         - id: auth-services
           uri: lb://AUTH-SERVICES
@@ -19,23 +18,22 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/users/**
+
 management:
   endpoints:
     web:
-      # Hangi endpoint'lerin HTTP üzerinden erişilebilir olacağını belirtir
       exposure:
-        # '*' tüm endpoint'leri açar (geliştirme için uygun)
-        # Daha güvenli: include: health,info,gateway
-        include: "*" 
+        include: "*"
   endpoint:
-    # Gateway'e özel actuator endpoint'ini aktif et
     gateway:
-      enabled: true            
+      enabled: true
 
+# Geçerli bir Base64 (en az 32 byte) key ile değiştirin
 jwt:
-  secret: "Y29rLWd1Y2x1LWJpci1zaWZyZS1idS1raW1zZS1iaWxlbWV6LTEyMzQ1IQ===="
+  secret: "jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
