@@ -8,8 +8,8 @@ spring:
         locator:
           enabled: false # Servisleri Eureka üzerinden otomatik bulur
 
-      # default-filters:
-       # - AuthenticationFilter          
+      default-filters:
+        - AuthenticationFilter          
       routes:
         - id: auth-services
           uri: lb://AUTH-SERVICES
