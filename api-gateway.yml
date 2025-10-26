@@ -6,14 +6,13 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: false # Servisleri Eureka üzerinden otomatik bulur
+          enabled: true # Servisleri Eureka üzerinden otomatik bulur
 
       default-filters:
         - AuthenticationFilter          
       routes:
         - id: auth-services
-          # uri: lb://AUTH-SERVICES
-          uri: http://localhost:9002
+          uri: lb://AUTH-SERVICES
           predicates:
             - Path=/api/auth/**
             - Path=/api/admin/**
