@@ -30,7 +30,7 @@ management:
 
 # Geçerli bir Base64 (en az 32 byte) key ile değiştirin
 jwt:
-  secret: "jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
+  secret: "Base64:jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
 
 eureka:
   client:
