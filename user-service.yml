@@ -35,7 +35,14 @@ spring:
     host: localhost
     port: 5672
     username: guest
-    password: guest      
+    password: guest
+
+  minio:
+  url: http://localhost:9000      # MinIO sunucunuzun API adresi
+  access-key: your_minio_user     # docker-compose.yml'de belirlediğiniz kullanıcı
+  secret-key: your_minio_password # docker-compose.yml'de belirlediğiniz şifre
+  bucket:
+    name: educonnect             # MinIO'da oluşturduğunuz bucket'ın adı        
 
 eureka:
   client:
