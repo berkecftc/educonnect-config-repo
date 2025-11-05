@@ -4,7 +4,7 @@ server:
 spring:
   # Veritabanı Bağlantısı
   datasource:
-    url: jdbc:postgresql://localhost:5432/event_db # Docker'daki PostgreSQL'e 'localhost' üzerinden bağlanır
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema="event_db" # Docker'daki PostgreSQL'e 'localhost' üzerinden bağlanır
     username: eduadmin
     password: edu123
     driver-class-name: org.postgresql.Driver
@@ -13,6 +13,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update # Geliştirme aşamasında şemayı otomatik günceller
+      default_schema: "event_db"
     show-sql: true # Çalışan SQL sorgularını konsolda gösterir
   
   # Mesaj Kuyruğu Bağlantısı
@@ -21,12 +22,13 @@ spring:
     port: 5672
     username: guest
     password: guest
+
     minio:
     url: http://localhost:9000
     access-key: your_minio_user     # docker-compose'da belirlediğiniz kullanıcı adı
     secret-key: your_minio_password # docker-compose'da belirlediğiniz şifre
     bucket:
-    name: educonnect # Kullanacağınız varsayılan bucket adı
+    name: events-bucket # Kullanacağınız varsayılan bucket adı
 
 # Eureka Server'a Kayıt
 eureka:

@@ -1,0 +1,28 @@
+server:
+  port: 9005 # (9001, 9002, 9004 kullanıldı, 9005 uygun görünüyor)
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=club_db
+    username: eduadmin
+    password: edu123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # Başlangıçta tabloları oluştur
+
+  # Kulüp logolarını yüklemek için MinIO ayarları
+minio:
+  url: http://localhost:9000
+  access-key: your_minio_user
+  secret-key: your_minio_password
+  bucket:
+    name: club-bucket # Veya kulüp logoları için 'club-logos' adında ayrı bir bucket
+
+  # JPA'nın veritabanı ile (PostgreSQL) nasıl konuşacağını belirtir
+  database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
