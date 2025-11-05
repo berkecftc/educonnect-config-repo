@@ -19,6 +19,12 @@ minio:
   bucket:
     name: club-bucket # Veya kulüp logoları için 'club-logos' adında ayrı bir bucket
 
+rabbitmq:
+  host: localhost # Docker'daki RabbitMQ'ya 'localhost' üzerinden bağlanır
+  port: 5672
+  username: guest
+  password: guest
+
   # JPA'nın veritabanı ile (PostgreSQL) nasıl konuşacağını belirtir
   database-platform: org.hibernate.dialect.PostgreSQLDialect
 
