@@ -10,19 +10,30 @@ spring:
       default-filters:
         - name: AuthenticationFilter
       routes:
-        - id: auth-services
-          uri: lb://AUTH-SERVICES
+        # 1. KULÜP SERVİSİ (Spesifik yol)
+        - id: club-service
+          uri: lb://CLUB-SERVICE # Eureka'daki adınızla eşleşmeli
           predicates:
-            - Path=/api/auth/**, /api/admin/**
+            - Path=/api/clubs/** # Public yol
+            - Path=/api/admin/clubs/** # Admin yolu
+          # --- YENİ EKLEME ---
+          order: 1  # YÜKSEK ÖNCELİK (Küçük sayı)
+
+        # 2. AUTH SERVİSİ (Genel yol)
+        - id: auth-services
+          uri: lb://AUTH-SERVICES # Eureka'daki adınızla eşleşmeli
+          predicates:
+            - Path=/api/auth/** # Public yol
+            - Path=/api/admin/** # Admin yolu (Genel)
+          # --- YENİ EKLEME ---
+          order: 2  # DÜŞÜK ÖNCELİK (Büyük sayı)
+
+        # 3. USER SERVİSİ (Diğerleriyle çakışmıyor)
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/users/**
-        - id: club-service
-          uri: lb://CLUB-SERVICE 
-          predicates:
-            - Path=/api/clubs/** # Öğrenci/public yolları
-            - Path=/api/admin/clubs/** # Admin yolları
+          order: 3  # (Buna da bir sıra verelim)
     
 
 management:
