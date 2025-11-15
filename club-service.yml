@@ -10,6 +10,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update # Başlangıçta tabloları oluştur
+  cloud:
+    gateway:
+      routes:
+        - id: club-service
+          uri: lb://CLUB-SERVICE
+          predicates:
+            - Path=/api/clubs/**
+            - Path=/api/admin/clubs/**    
 
   # Kulüp logolarını yüklemek için MinIO ayarları
 minio:
