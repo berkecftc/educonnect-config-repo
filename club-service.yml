@@ -6,10 +6,6 @@ spring:
     name: club-service
     
   datasource:
-    # Kullanıcı adınız ve şifrenizle güncelledim
-    # Dikkat: Eğer 'club_db' adında ayrı bir veritabanı oluşturduysanız
-    # url: jdbc:postgresql://localhost:5432/club_db kullanın.
-    # Şema kullanıyorsanız bu format doğrudur:
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=club_db
     username: eduadmin
     password: edu123
