@@ -10,31 +10,40 @@ spring:
       default-filters:
         - name: AuthenticationFilter
       routes:
-        # 1. KULÜP SERVİSİ (Spesifik yol)
+        # 1. Kulüp Admin Yolu (En yüksek öncelik)
+        - id: club-admin
+          uri: lb://CLUB-SERVICE
+          predicates:
+            - Path=/api/admin/clubs/**  # Sadece admin kulüp yolu
+          order: 1
+
+        # 2. Kulüp Public Yolu
         - id: club-service
-          uri: lb://CLUB-SERVICE # Eureka'daki adınızla eşleşmeli
+          uri: lb://CLUB-SERVICE
           predicates:
-            - Path=/api/clubs/** # Public yol
-            - Path=/api/admin/clubs/** # Admin yolu
-          # --- YENİ EKLEME ---
-          order: 1  # YÜKSEK ÖNCELİK (Küçük sayı)
+            - Path=/api/clubs/**  # Public kulüp yolu
+          order: 2
 
-        # 2. AUTH SERVİSİ (Genel yol)
+        # 3. Auth Admin Yolu (Genel admin işlemleri)
+        - id: auth-admin
+          uri: lb://AUTH-SERVICES
+          predicates:
+            - Path=/api/admin/**  # Diğer admin endpoint'leri
+          order: 3
+
+        # 4. Auth Public Yolu
         - id: auth-services
-          uri: lb://AUTH-SERVICES # Eureka'daki adınızla eşleşmeli
+          uri: lb://AUTH-SERVICES
           predicates:
-            - Path=/api/auth/** # Public yol
-            - Path=/api/admin/** # Admin yolu (Genel)
-          # --- YENİ EKLEME ---
-          order: 2  # DÜŞÜK ÖNCELİK (Büyük sayı)
+            - Path=/api/auth/**  # Public auth yolu
+          order: 4
 
-        # 3. USER SERVİSİ (Diğerleriyle çakışmıyor)
+        # 5. User Servisi
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/users/**
-          order: 3  # (Buna da bir sıra verelim)
-    
+          order: 5
 
 management:
   endpoints:
@@ -45,12 +54,10 @@ management:
     gateway:
       enabled: true
 
-# Geçerli bir Base64 (en az 32 byte) key ile değiştirin
-jwt.secret: "Base64:jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
-  
+jwt:
+  secret: "Base64:jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-
