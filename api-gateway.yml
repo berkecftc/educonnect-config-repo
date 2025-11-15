@@ -18,6 +18,12 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/users/**
+        - id: club-service
+          uri: lb://CLUB-SERVICE 
+          predicates:
+            - Path=/api/clubs/** # Öğrenci/public yolları
+            - Path=/api/admin/clubs/** # Admin yolları
+    
 
 management:
   endpoints:

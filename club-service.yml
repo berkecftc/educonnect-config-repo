@@ -1,40 +1,41 @@
 server:
-  port: 9005 # (9001, 9002, 9004 kullanıldı, 9005 uygun görünüyor)
+  port: 9005
 
 spring:
+  application:
+    name: club-service
+    
   datasource:
+    # Kullanıcı adınız ve şifrenizle güncelledim
+    # Dikkat: Eğer 'club_db' adında ayrı bir veritabanı oluşturduysanız
+    # url: jdbc:postgresql://localhost:5432/club_db kullanın.
+    # Şema kullanıyorsanız bu format doğrudur:
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=club_db
     username: eduadmin
     password: edu123
     driver-class-name: org.postgresql.Driver
+    
   jpa:
     hibernate:
-      ddl-auto: update # Başlangıçta tabloları oluştur
-  cloud:
-    gateway:
-      routes:
-        - id: club-service
-          uri: lb://CLUB-SERVICE
-          predicates:
-            - Path=/api/clubs/**
-            - Path=/api/admin/clubs/**    
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true # Geliştirme aşamasında SQL sorgularını görmek iyidir
 
-  # Kulüp logolarını yüklemek için MinIO ayarları
+  # RabbitMQ ayarları 'spring' bloğunun altına taşındı
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+# MinIO ayarları (Custom property olduğu için en dışta kalabilir)
 minio:
   url: http://localhost:9000
-  access-key: your_minio_user
-  secret-key: your_minio_password
+  access-key: your_minio_user     # Kendi MinIO kullanıcı adınız
+  secret-key: your_minio_password # Kendi MinIO şifreniz
   bucket:
-    name: club-bucket # Veya kulüp logoları için 'club-logos' adında ayrı bir bucket
-
-rabbitmq:
-  host: localhost # Docker'daki RabbitMQ'ya 'localhost' üzerinden bağlanır
-  port: 5672
-  username: guest
-  password: guest
-
-  # JPA'nın veritabanı ile (PostgreSQL) nasıl konuşacağını belirtir
-  database-platform: org.hibernate.dialect.PostgreSQLDialect
+    name: club-bucket
 
 eureka:
   client:
