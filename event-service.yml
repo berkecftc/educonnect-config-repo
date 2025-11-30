@@ -1,5 +1,5 @@
 server:
-  port: 9004 # Diğer servislerle çakışmayan bir port
+  port: 9006 # Diğer servislerle çakışmayan bir port
 
 spring:
   # Veritabanı Bağlantısı
