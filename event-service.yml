@@ -12,7 +12,7 @@ spring:
   # JPA ve Veritabanı Ayarları
   jpa:
     hibernate:
-      ddl-auto: create # Geliştirme aşamasında şemayı otomatik günceller
+      ddl-auto: update # Geliştirme aşamasında şemayı otomatik günceller
       default_schema: "event_db"
     show-sql: true # Çalışan SQL sorgularını konsolda gösterir
   
