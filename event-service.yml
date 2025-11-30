@@ -30,6 +30,9 @@ minio:
   bucket:
     name: events-bucket # Kullanacağınız varsayılan bucket adı
 
+jwt:
+  secret: "Base64:jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
+
 # Eureka Server'a Kayıt
 eureka:
   client:
