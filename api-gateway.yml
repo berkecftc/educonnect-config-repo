@@ -45,6 +45,14 @@ spring:
             - Path=/api/users/**
           order: 5
 
+          # --- EVENT SERVİSİ ---
+        - id: event-service
+          uri: lb://EVENT-SERVICE # Eureka'daki adıyla eşleşmeli
+          predicates:
+            - Path=/api/events/** # Hem öğrenci hem yönetim yollarını kapsar
+            # (/api/events/manage/** yolu da bunun içinde kalır)
+          order: 6
+
 management:
   endpoints:
     web:
