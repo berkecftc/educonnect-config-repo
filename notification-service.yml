@@ -1,0 +1,33 @@
+server:
+  port: 9008
+
+spring:
+  application:
+    name: notification-service
+  
+  # RabbitMQ Bağlantısı
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  # E-Posta Ayarları (Örn: Gmail)
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: educonnect.workshop@gmail.com # <-- BURAYI DOLDURUN
+    password: uiii izps okje hnfw       # <-- BURAYI DOLDURUN (Normal şifre değil, App Password)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    # Test sırasında hata almamak için (Geliştirme ortamı)
+    test-connection: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
