@@ -1,22 +1,57 @@
 server:
-  port: 9003
+  port: 8084
+
 spring:
+  application:
+    name: course-service
+  
   datasource:
-    url: jdbc:postgresql://localhost:5432/course_db # DİKKAT: 'localhost'
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=course_db
     username: eduadmin
     password: edu123
+    driver-class-name: org.postgresql.Driver
+    
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+
+    # RabbitMQ ayarları 'spring' bloğunun altına taşındı
   rabbitmq:
-    host: localhost # DİKKAT: 'rabbitmq' yerine 'localhost'
+    host: localhost
     port: 5672
     username: guest
     password: guest
-    minio:
-    url: http://localhost:9000
-    access-key: your_minio_user     # docker-compose'da belirlediğiniz kullanıcı adı
-    secret-key: your_minio_password # docker-compose'da belirlediğiniz şifre
-    bucket:
-    name: educonnect # Kullanacağınız varsayılan bucket adı
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+minio:
+  url: http://localhost:9000
+  access-key: your_minio_user     # docker-compose'da belirlediğiniz kullanıcı adı
+  secret-key: your_minio_password # docker-compose'da belirlediğiniz şifre
+  bucket:
+    name: courses-bucket # Kullanacağınız varsayılan bucket adı
+
+jwt:
+  secret: "Base64:jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
+      
+# Feign Client Ayarları
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
