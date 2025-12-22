@@ -1,27 +1,49 @@
 server:
-  port: 9005
+  port: 8085 # Course: 8084, Assignment: 8085
 
 spring:
+  application:
+    name: assignment-service
+  
   datasource:
-    url: jdbc:postgresql://localhost:5432/assignment_db
-    username: eduadmin 
+    # 👇 Şema ismine dikkat: assignment_db
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=assignment_db
+    username: eduadmin
     password: edu123
+    driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
   rabbitmq:
     host: localhost
     port: 5672
     username: guest
     password: guest
-    minio:
-     url: http://localhost:9000
-     access-key: your_minio_user     # docker-compose'da belirlediğiniz kullanıcı adı
-     secret-key: your_minio_password # docker-compose'da belirlediğiniz şifre
-     bucket:
-     name: educonnect # Kullanacağınız varsayılan bucket adı
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+# MinIO Ayarları (Dosyalar için ayrı bucket)
+minio:
+  url: http://localhost:9000
+  access-key: your_minio_user
+  secret-key: your_minio_password
+  bucket-name: educonnect-assignments
+
+jwt:
+  secret: "Base64:jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
