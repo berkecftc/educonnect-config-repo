@@ -59,6 +59,12 @@ spring:
             - Path=/api/courses/** # Bu adrese gelen her şeyi Course Service'e at
           order: 7
 
+        - id: assignment-service
+          uri: lb://assignment-service
+          predicates:
+            - Path=/api/assignments/**
+          order: 8  
+
 management:
   endpoints:
     web:
