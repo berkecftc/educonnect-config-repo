@@ -53,6 +53,12 @@ spring:
             # (/api/events/manage/** yolu da bunun içinde kalır)
           order: 6
 
+        - id: course-service
+          uri: lb://course-service  # Eureka'daki ismiyle arar (Load Balancer)
+          predicates:
+            - Path=/api/courses/** # Bu adrese gelen her şeyi Course Service'e at
+          order: 7
+
 management:
   endpoints:
     web:
