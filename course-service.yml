@@ -6,11 +6,12 @@ spring:
     name: course-service
   
   datasource:
+    # Veritabanı adını 'postgres' yapmışsın, eğer 'educonnect' kullanıyorsan onu düzelt.
+    # Şema ismin doğru: course_db
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=course_db
     username: eduadmin
     password: edu123
     driver-class-name: org.postgresql.Driver
-    
 
   jpa:
     show-sql: true
@@ -22,7 +23,6 @@ spring:
         format_sql: true
     open-in-view: false
 
-    # RabbitMQ ayarları 'spring' bloğunun altına taşındı
   rabbitmq:
     host: localhost
     port: 5672
@@ -38,17 +38,16 @@ eureka:
   instance:
     prefer-ip-address: true
 
+# 👇 MİNIO AYARLARI (DÜZELTİLDİ)
 minio:
   url: http://localhost:9000
-  access-key: your_minio_user     # docker-compose'da belirlediğiniz kullanıcı adı
-  secret-key: your_minio_password # docker-compose'da belirlediğiniz şifre
-  bucket:
-    name: courses-bucket # Kullanacağınız varsayılan bucket adı
+  access-key: your_minio_user  # Gerçek kullanıcı adını yaz (genelde minioadmin)
+  secret-key: your_minio_password  # Gerçek şifreni yaz (genelde minioadmin)
+  bucket-name: courses-bucket # ⚠️ DİKKAT: 'bucket:' altına girinti yapma, tire (-) ile birleştir.
 
 jwt:
   secret: "Base64:jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
-      
-# Feign Client Ayarları
+
 feign:
   client:
     config:
