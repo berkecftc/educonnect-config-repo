@@ -7,6 +7,23 @@ spring:
       discovery:
         locator:
           enabled: false
+      
+      # 👇 YENİ EKLENEN KISIM: CORS AYARLARI BURADA OLMALI 👇
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173" # Frontend Adresin
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+              - PATCH
+            allowedHeaders: "*"
+            allowCredentials: true
+      # 👆 BİTİŞ 👆
+
       default-filters:
         - name: AuthenticationFilter
       routes:
@@ -14,29 +31,25 @@ spring:
         - id: club-admin
           uri: lb://CLUB-SERVICE
           predicates:
-            - Path=/api/admin/clubs/**  # Sadece admin kulüp yolu
-          order: 1
+            - Path=/api/admin/clubs/** order: 1
 
         # 2. Kulüp Public Yolu
         - id: club-service
           uri: lb://CLUB-SERVICE
           predicates:
-            - Path=/api/clubs/**  # Public kulüp yolu
-          order: 2
+            - Path=/api/clubs/** order: 2
 
-        # 3. Auth Admin Yolu (Genel admin işlemleri)
+        # 3. Auth Admin Yolu
         - id: auth-admin
           uri: lb://AUTH-SERVICES
           predicates:
-            - Path=/api/admin/**  # Diğer admin endpoint'leri
-          order: 3
+            - Path=/api/admin/** order: 3
 
         # 4. Auth Public Yolu
         - id: auth-services
           uri: lb://AUTH-SERVICES
           predicates:
-            - Path=/api/auth/**  # Public auth yolu
-          order: 4
+            - Path=/api/auth/** order: 4
 
         # 5. User Servisi
         - id: user-service
@@ -47,17 +60,14 @@ spring:
 
           # --- EVENT SERVİSİ ---
         - id: event-service
-          uri: lb://EVENT-SERVICE # Eureka'daki adıyla eşleşmeli
+          uri: lb://EVENT-SERVICE 
           predicates:
-            - Path=/api/events/** # Hem öğrenci hem yönetim yollarını kapsar
-            # (/api/events/manage/** yolu da bunun içinde kalır)
-          order: 6
+            - Path=/api/events/** order: 6
 
         - id: course-service
-          uri: lb://course-service  # Eureka'daki ismiyle arar (Load Balancer)
+          uri: lb://course-service  
           predicates:
-            - Path=/api/courses/** # Bu adrese gelen her şeyi Course Service'e at
-          order: 7
+            - Path=/api/courses/** order: 7
 
         - id: assignment-service
           uri: lb://assignment-service
