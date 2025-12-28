@@ -8,11 +8,11 @@ spring:
         locator:
           enabled: false
       
-      # 👇 YENİ EKLENEN KISIM: CORS AYARLARI BURADA OLMALI 👇
+      # CORS Ayarları
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:5173" # Frontend Adresin
+            allowedOrigins: "http://localhost:5173"
             allowedMethods:
               - GET
               - POST
@@ -22,34 +22,38 @@ spring:
               - PATCH
             allowedHeaders: "*"
             allowCredentials: true
-      # 👆 BİTİŞ 👆
 
       default-filters:
         - name: AuthenticationFilter
+
       routes:
-        # 1. Kulüp Admin Yolu (En yüksek öncelik)
+        # 1. Kulüp Admin Yolu
         - id: club-admin
           uri: lb://CLUB-SERVICE
           predicates:
-            - Path=/api/admin/clubs/** order: 1
+            - Path=/api/admin/clubs/**
+          order: 1  # 👈 DİKKAT: order buraya, ayrı satıra gelmeli
 
         # 2. Kulüp Public Yolu
         - id: club-service
           uri: lb://CLUB-SERVICE
           predicates:
-            - Path=/api/clubs/** order: 2
+            - Path=/api/clubs/**
+          order: 2
 
         # 3. Auth Admin Yolu
         - id: auth-admin
           uri: lb://AUTH-SERVICES
           predicates:
-            - Path=/api/admin/** order: 3
+            - Path=/api/admin/**
+          order: 3
 
         # 4. Auth Public Yolu
         - id: auth-services
           uri: lb://AUTH-SERVICES
           predicates:
-            - Path=/api/auth/** order: 4
+            - Path=/api/auth/**
+          order: 4
 
         # 5. User Servisi
         - id: user-service
@@ -58,17 +62,21 @@ spring:
             - Path=/api/users/**
           order: 5
 
-          # --- EVENT SERVİSİ ---
+        # 6. Event Servisi
         - id: event-service
           uri: lb://EVENT-SERVICE 
           predicates:
-            - Path=/api/events/** order: 6
+            - Path=/api/events/**
+          order: 6
 
+        # 7. Course Servisi
         - id: course-service
           uri: lb://course-service  
           predicates:
-            - Path=/api/courses/** order: 7
+            - Path=/api/courses/**
+          order: 7
 
+        # 8. Assignment Servisi
         - id: assignment-service
           uri: lb://assignment-service
           predicates:
