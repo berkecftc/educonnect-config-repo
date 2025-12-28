@@ -8,7 +8,6 @@ spring:
         locator:
           enabled: false
       
-      # CORS Ayarları
       globalcors:
         cors-configurations:
           '[/**]':
@@ -25,58 +24,58 @@ spring:
 
       default-filters:
         - name: AuthenticationFilter
+        # 👇 SİHİRLİ DOKUNUŞ BURADA 👇
+        - name: DedupeResponseHeader
+          args:
+            strategy: RETAIN_UNIQUE
+            name: Access-Control-Allow-Origin Access-Control-Allow-Credentials
 
       routes:
-        # 1. Kulüp Admin Yolu
+        # ... (Senin mevcut rotaların aynen kalacak) ...
+        # ... club-admin, club-service, auth, user, event, course, assignment ...
+        # (Aşağıdaki kodları değiştirmene gerek yok, sadece default-filters'ı güncellemen yeterli)
         - id: club-admin
           uri: lb://CLUB-SERVICE
           predicates:
             - Path=/api/admin/clubs/**
-          order: 1  # 👈 DİKKAT: order buraya, ayrı satıra gelmeli
-
-        # 2. Kulüp Public Yolu
+          order: 1
+          
         - id: club-service
           uri: lb://CLUB-SERVICE
           predicates:
             - Path=/api/clubs/**
           order: 2
 
-        # 3. Auth Admin Yolu
         - id: auth-admin
           uri: lb://AUTH-SERVICES
           predicates:
             - Path=/api/admin/**
           order: 3
 
-        # 4. Auth Public Yolu
         - id: auth-services
           uri: lb://AUTH-SERVICES
           predicates:
             - Path=/api/auth/**
           order: 4
 
-        # 5. User Servisi
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/users/**
           order: 5
 
-        # 6. Event Servisi
         - id: event-service
           uri: lb://EVENT-SERVICE 
           predicates:
             - Path=/api/events/**
           order: 6
 
-        # 7. Course Servisi
         - id: course-service
           uri: lb://course-service  
           predicates:
             - Path=/api/courses/**
           order: 7
 
-        # 8. Assignment Servisi
         - id: assignment-service
           uri: lb://assignment-service
           predicates:
