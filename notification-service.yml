@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: notification-service
-  
+
   # RabbitMQ Bağlantısı
   rabbitmq:
     host: localhost
@@ -12,22 +12,26 @@ spring:
     username: guest
     password: guest
 
-  # E-Posta Ayarları (Örn: Gmail)
+  # E-Posta Ayarları (Mailpit - Development)
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${MAIL_USERNAME} # <-- BURAYI DOLDURUN
-    password: ${MAIL_PASSWORD}       # <-- BURAYI DOLDURUN (Normal şifre değil, App Password)
+    host: localhost
+    port: 1025
+    username: ""
+    password: ""
     properties:
       mail:
         smtp:
-          auth: true
+          auth: false
           starttls:
-            enable: true
-    # Test sırasında hata almamak için (Geliştirme ortamı)
+            enable: false
     test-connection: false
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+# Custom property for from address
+app:
+  mail:
+    from: noreply@educonnect.com
