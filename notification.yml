@@ -2,19 +2,34 @@ server:
   port: 9008
 
 spring:
+  application:
+    name: notification-service
+
   rabbitmq:
     host: localhost
     port: 5672
     username: guest
     password: guest
+
+  # 👇 MAILPIT AYARLARI (GMAIL YERİNE)
   mail:
-    host: smtp.gmail.com # veya kendi mail sunucunuz
-    port: 587
-    username: your-email@gmail.com
-    password: your-app-password # Gmail için uygulama şifresi
+    # Docker konteyneri 1025 portunu dışarı açtığı için 
+    # ve sen uygulamayı localde çalıştırdığın için 'localhost' kullanıyoruz.
+    host: localhost 
+    port: 1025
+    username: null  # Mailpit şifre istemez
+    password: null
+    protocol: smtp
     properties:
-      mail.smtp.auth: true
-      mail.smtp.starttls.enable: true
+      mail:
+        smtp:
+          auth: false            # Kimlik doğrulama yok
+          starttls:
+            enable: false        # Şifreleme (TLS) yok, düz metin
+            required: false
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
 
 eureka:
   client:
