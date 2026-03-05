@@ -1,0 +1,50 @@
+server:
+  port: 8086
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/educonnect
+    username: eduadmin
+    password: edu123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: post_schema
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  flyway:
+    enabled: true
+    schemas: post_schema
+    default-schema: post_schema
+    baseline-on-migrate: true
+    out-of-order: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,flyway
+  endpoint:
+    flyway:
+      enabled: true
+
+logging:
+  level:
+    com.educonnect.postservice: DEBUG
+    org.springframework.amqp: DEBUG

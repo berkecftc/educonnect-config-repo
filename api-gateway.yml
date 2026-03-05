@@ -80,7 +80,13 @@ spring:
           uri: lb://assignment-service
           predicates:
             - Path=/api/assignments/**
-          order: 8  
+          order: 8
+
+        - id: post-service
+          uri: lb://post-service
+          predicates:
+            - Path=/api/posts/**
+          order: 9  
 
 management:
   endpoints:
