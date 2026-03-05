@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/educonnect
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=post_db
     username: eduadmin
     password: edu123
     driver-class-name: org.postgresql.Driver
@@ -13,14 +13,14 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        default_schema: post_schema
+        default_schema: post_db
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
 
   flyway:
     enabled: true
-    schemas: post_schema
-    default-schema: post_schema
+    schemas: post_db
+    default-schema: post_db
     baseline-on-migrate: true
     out-of-order: true
 
