@@ -37,6 +37,9 @@ minio:
   access-key: your_minio_user
   secret-key: your_minio_password
   bucket-name: educonnect-assignments
+  bucket-policy:
+    mode: ${MINIO_BUCKET_POLICY_MODE:custom}
+    custom-json: ${MINIO_BUCKET_POLICY_CUSTOM_JSON:}
 
 jwt:
   secret: "Base64:jZwU5GubnUxm1GesQMzbti2lhVckdkLpww1Awn3h0ng="
