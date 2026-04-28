@@ -24,7 +24,7 @@ spring:
       base-url: http://localhost:11434 
       chat:
         options:
-          model: llama3.1
+          model: llama3.2:1b
           temperature: 0.2 # Net ve halüsinasyonsuz cevaplar için düşük tutuyoruz
 
 # OpenFeign Zaman Aşımı Ayarları (Kritik: LLM geç cevap verebilir, timeout'u yüksek tutuyoruz)
