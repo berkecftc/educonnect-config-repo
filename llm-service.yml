@@ -34,3 +34,10 @@ feign:
       default:
         connectTimeout: 5000
         readTimeout: 30000 # LLM'in cevabı hazırlaması uzun sürebilir, 30 saniye veriyoruz
+# Local logging overrides. Config server can still override these values.
+logging:
+  level:
+    # Keep framework logs at INFO by default, enable DEBUG for service package
+    root: INFO
+    org.springframework: INFO
+    com.educonnect.llmservice: DEBUG
