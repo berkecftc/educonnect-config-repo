@@ -1,0 +1,36 @@
+server:
+  port: 8089 # Boşta olan uygun bir port
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring:
+  # RabbitMQ Ayarları (Asenkron Moderasyon İçin)
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  # Spring AI ve Ollama Ayarları
+  ai:
+    ollama:
+      # Eğer llm-service'i Docker içinde çalıştıracaksan "http://ollama:11434" yapmalısın.
+      # Eğer llm-service'i IDE'nden (localhost) çalıştırıyorsan aşağıdaki gibi kalmalı:
+      base-url: http://localhost:11434 
+      chat:
+        options:
+          model: llama3
+          temperature: 0.3 # Net ve halüsinasyonsuz cevaplar için düşük tutuyoruz
+
+# OpenFeign Zaman Aşımı Ayarları (Kritik: LLM geç cevap verebilir, timeout'u yüksek tutuyoruz)
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 30000 # LLM'in cevabı hazırlaması uzun sürebilir, 30 saniye veriyoruz
