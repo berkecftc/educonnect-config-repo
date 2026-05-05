@@ -91,7 +91,11 @@ spring:
           uri: lb://llm-service
           predicates:
             - Path=/api/ai/**
-          order: 10  
+          order: 10
+          metadata:
+            # İŞTE BURASI: Gateway'e bu rota için 3 dakika beklemesini söylüyoruz (Milisaniye cinsinden)
+            response-timeout: 180000 
+            connect-timeout: 30000 
 
 management:
   endpoints:
